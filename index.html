@@ -1,24 +1,45 @@
 <!DOCTYPE html>
-<html>
-    
-<html lang="es" data-theme="light">
+<html lang="es">
     <head>
         <meta charset="UTF-8" /> <!-- Permite la codificación de caracteres -->
+        <!-- viewport -> Permite que el sitio se adapte a diferentes tamaños de pantalla
+                width=device-width -> adapta el ancho de la pantalla al ancho del dispositivo
+                initial-scale=1.0 -> establece el zoom base de la pagina a 100%     --> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Hace que el sitio sea responsive y adaptativo  -->  
         <title>Juegos de azar y mujerzuelas</title>
-        <link rel="stylesheet" href="estilos.css">
+        <link rel="stylesheet" href="estilos.css"> <!--  vincular a la hoja de estilos.css -->
     </head>
-    <body>
-        <header class="marco-superior"> <!-- Encabezado del sitio con clase para estilos -->
-        </header>
-        
-        <!-- Contenedor principal del sitio (todo abajo del marco superior) -->
-         <!--NOTA: puse la misma clase en el div y main para que se adapte y alinee mejor al tamaño de la pagina principal
-         sin repitir el mismo codigo-->
-        <main class="contenedor">  <!--contenido principal-->
-            <div class="vista-actual">
-                <!-- Aquí debe ir el contenido del dashboard y las operaciones bancarias -->
-                <h1>Bienvenido a los juegos de azar y mujerzuelas</h1>
-            </div>
-        </main>
+    
+    <body> <!-- cuerpo de la pagina -->
+        <div class="contenedor"> <!-- contenedor principal que envuelve todo el contenido del sitio -->
+
+            <aside class="marco-lateral-izquierdo"> <!-- marco izquierdo -->
+                <!-- logo del sitio-->
+                <img src="imagenes/imagen-referencia.jpg" alt="Logo del sitio" class="logo"> 
+       
+
+                <h1 class="tituloPrincipal-pagina" >BALATROS.EXE</h1> <!-- Título del sitio -->
+
+                <div class="barraInferiorDecorativa"></div> <!-- Barra decorativa al final del marco vertical-->
+            </aside>
+            
+             <!-- Contenedor principal del sitio (todo al lado del marco izquierdo) -->
+            <main class="contenedor-juego">  <!--contenido main-->
+                <h1 class="titulo-del-juego">Solitario 2048!</h1> <!-- Título del juego - fuera del marco lateral-->
+                    
+                <!-- parrafo explicativo para el juego -->
+                <p class="parrafo-explicativo">Apila 2 cartas del mismo número para sumarlas, lleva una de las pilas al nro. 2048 para Ganar.</p>
+                
+                <div class="cuadro-de-juego"> <!-- cuadro del juego -->
+                    <p style="color: rgba(255,255,255,0.3); font-style: italic;">[ Espacio reservado para el tablero interactivo ]</p>
+                </div>
+                
+
+                <footer class="pie-de-pagina"> <!-- Pie de página del sitio -->
+                    <h3 class="footer-redesSociales">Intagram|Facebook|X|Linkedln</p>
+                    <h3 class="footer-creditos">&copy;Gamblim.com es una página de juegos de Caracas, Venezuela, creada en mayo de 2026</p>
+                </footer>
+            </main>
+        </div>
     </body>
 </html>

@@ -1,28 +1,157 @@
 /*Parametros globales de la pagina*/
 * {
-    box-sizing: border-box;
-    /* Padding y margin son 0 para que el marco no se y quede cubriendo la parte superior de la pagina*/
-    margin: 0;  /*eliminar el margen por defecto*/
-    padding: 0; /*eliminar el padding por defecto*/
-    font-family: Teachers, sans-serif; /*TIPOGRAFIA*/
+    box-sizing: border-box; 
+    font-family: sans-serif; /*TIPOGRAFIA*/
+    margin: 0;
+    padding: 0;
 }
 
-/*Definir colores y tamaños base en el <html>*/
 /*variables globales (Custom Properties)*/
 :root {
-    --fondoColor: red;
-    --textoColor: #333;   /* Color del texto principal */
-    --colorFondo-header: #e8791f; /* Color de fondo del marco superior */
-    --textoHeader: white; /* Color del texto en el marco superior */
+    --fondoColor:#1a1d40; /* Color de fondo general de la pagina */
+    --textoColor:white;   /* Color del texto general */
+    --colorFondo-aside:#b81414 ; /* Color de fondo del marco izquierdo */
+    --textoAside: white; /* Color del texto en el marco lateral */
     --maxAnchura: 1440px; /*define la anchura maxima de la pagina a 1440px(base para las paginas web)*/
 }
 
+/*----------------------------- CUERPO DE LA PAGINA -----------------------------*/
 
-/*Definir tamaño base de la pagina: 1440px*/
-.contenedor {
+
+.body  {  /*Definir tamaño base de la pagina*/
+    background-color: #1a1d40; /* Color de fondo general solicitado */
+    height: 100vh;
+    display: flex;
+    justify-content: center; /* Centra el contenedor si la pantalla es mayor a 1440px */
+    align-items: center;
+    overflow: hidden; /* Evita barras de scroll externas molestas */
+}
+
+.contenedor { /* Contenedor principal que envuelve todo el contenido del sitio */
     max-width: var(--maxAnchura); /* llamada a las variable global definida en el :root*/
-    margin: 0 auto; /* Centra el contenido */
-    padding: 0 20px;
+    background-color: var(--fondoColor);
+    display: flex;
+    width: 100%;
+    height: 100vh; 
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/*----------------------------- MARCO LATERAL IZQUIERDO -----------------------------*/
+
+/*ASIDE PRINCIPAL*/
+.marco-lateral-izquierdo {
+    width: 260px; /* Tamaño prudente que no estorba al juego */
+    background-color: var(--colorFondo-aside); /* Color rojo solicitado */
+    color: var(--textoAside); /* Letra blanca */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+    position: relative; /* Permite posicionar la barra ovalada al fondo */
+    flex-shrink: 0; /* Evita que el contenedor derecho lo aplaste */
+}
+
+/*Imagen de logo */
+.logo {
+    width: 120px;
+    height: 120px;
+    object-fit: contain;
+    margin-bottom: 20px;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo temporal por si no tienes la imagen cargada */
+    border-radius: 10px;
+}
+
+/*TITULO DEL LOGO*/
+.tituloPrincipal-pagina {
+    font-size: 22px;
+    font-weight: bold;
+    text-align: center;
     width: 100%;
 }
 
+/*Barra ovalada decorativa al fondo del marco*/
+.barraInferiorDecorativa {
+    position: absolute;
+    bottom: 30px; /* Pegado al fondo del marco */
+    left: 50%;
+    transform: translateX(-50%); /* Centrado exacto horizontalmente */
+    width: 80%;
+    height: 25px;
+    background-color: var(--fondoColor); /* Mismo color que la página */
+    border-radius: 50px; /* Forma de óvalo/cápsula */
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+/*----------------------------- (+) CONTENIDO DERECHO DE LA PAGINA (+) -----------------------------*/
+
+/*contenedor principal del contenido - MAIN*/
+.contenedor-juego {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* ¡ESTA ES LA CLAVE! Centra todos los bloques hijos horizontalmente */
+    padding: 30px 40px 20px 40px;
+    color: var(--textoColor);
+}
+
+/* Título del juego centrado */
+.titulo-del-juego {
+    font-size: 36px;
+    color: var(--textoColor);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Párrafo*/
+.parrafo-explicativo {
+    font-size: 15px;
+    text-align: center; /* Centra las líneas de texto del párrafo */
+    max-width: 700px;
+    margin-bottom: 30px;
+    color: var(--textoColor);
+    line-height: 1.4;
+}
+
+/* Cuadro base del juego */
+.cuadro-de-juego {
+    width: 100%;
+    max-width: 800px; 
+    flex-grow: 1; 
+    background-color: rgba(255, 255, 255, 0.03); 
+    border: 2px dashed rgba(255, 255, 255, 0.15); 
+    border-radius: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+/*pie de página */
+.pie-de-pagina {
+    width: 100%;
+    text-align: center;
+    padding-top: 15px; 
+    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria entre contenido y pie de página */
+}
+
+/*Redes sociales */
+.footer-redesSociales {
+    font-size: 13px;
+    font-weight: normal;
+    margin-bottom: 5px;
+    letter-spacing: 1px;
+    color: var(--textoColor);
+}
+
+/* creditos */
+.footer-creditos {
+    font-size: 11px;
+    font-weight: normal;
+    opacity: 0.7; /* Texto un poco más suave para jerarquía visual */
+    color: var(--textoColor);
+}
+
+/*-----------------------------------------------------------------------------------*/
