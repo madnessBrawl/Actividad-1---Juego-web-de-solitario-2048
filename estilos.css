@@ -88,68 +88,68 @@
 
 /*contenedor principal del contenido - MAIN*/
 .contenedor-juego {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center; /* ¡ESTA ES LA CLAVE! Centra todos los bloques hijos horizontalmente */
-    padding: 30px 40px 20px 40px;
+    flex-grow: 1; /* Permite que este contenedor ocupe todo el espacio disponible a la derecha del marco lateral */
+    display: flex; /* Flexbox para organizar el contenido verticalmente */
+    flex-direction: column; /* Organiza los elementos en columna (verticalmente) */
+    align-items: center; /* Centra todos los bloques hijos horizontalmente */
+    padding: 30px 40px 20px 40px; /* Espaciado interno para que el contenido no toque los bordes */
     color: var(--textoColor);
 }
 
 /* Título del juego centrado */
 .titulo-del-juego {
-    font-size: 36px;
+    font-size: 36px; /* Tamaño de letra*/
     color: var(--textoColor);
-    font-weight: bold;
-    text-align: center;
-    margin-bottom: 10px;
+    font-weight: bold; /* poner el titulo en negritas */
+    text-align: center; /* Centra el título horizontalmente */
+    margin-bottom: 10px; /* Espacio separador entre el título y el párrafo explicativo */
 }
 
 /* Párrafo*/
 .parrafo-explicativo {
-    font-size: 15px;
+    font-size: 15px; /* Tamaño de letra del párrafo explicativo */
     text-align: center; /* Centra las líneas de texto del párrafo */
-    max-width: 700px;
-    margin-bottom: 30px;
+    max-width: 700px; /* ancho del párrafo */
+    margin-bottom: 30px; /* Espacio separador entre el párrafo y el cuadro del juego */
     color: var(--textoColor);
     line-height: 1.4;
 }
 
 /* Cuadro base del juego */
 .cuadro-de-juego {
-    width: 100%;
-    max-width: 800px; 
-    flex-grow: 1; 
-    background-color: rgba(255, 255, 255, 0.03); 
-    border: 2px dashed rgba(255, 255, 255, 0.15); 
-    border-radius: 8px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 25px;
+    width: 100%; /*ancho del cuadro*/
+    max-width: 800px;  /*maxima anchura a alcanzar*/
+    flex-grow: 1;  /* Permite que el cuadro ocupe todo el espacio vertical restante*/
+    background-color: rgba(255, 255, 255, 0.03);  /* Fondo ligeramente más claro para destacar el área del juego */
+    border: 2px dashed rgba(255, 255, 255, 0.15);  /* Borde punteado para indicar que es un área interactiva (temporal) */
+    border-radius: 8px; /* redondea los bordes */
+    display: flex; /* Flexbox para centrar el texto dentro del cuadro */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    margin-bottom: 25px; /* Espacio entre el cuadro del juego y el pie de página */
 }
 
 /*pie de página */
 .pie-de-pagina {
-    width: 100%;
-    text-align: center;
-    padding-top: 15px; 
+    width: 100%; /*anchura*/
+    text-align: center; /* Centra el texto del pie de página */
+    padding-top: 15px;  /* Espacio entre el cuadro del juego y el pie de página */
     border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria entre contenido y pie de página */
 }
 
 /*Redes sociales */
 .footer-redesSociales {
-    font-size: 13px;
-    font-weight: normal;
-    margin-bottom: 5px;
-    letter-spacing: 1px;
+    font-size: 13px; /*tamaño de la fuente*/
+    font-weight: normal; /* poner en negritas normales -> 400 */
+    margin-bottom: 5px; /* Espacio entre las redes sociales y los créditos */
+    letter-spacing: 1px; /* Espaciado entre letras para un toque más estilizado */
     color: var(--textoColor);
 }
 
 /* creditos */
 .footer-creditos {
-    font-size: 11px;
-    font-weight: normal;
+    font-size: 11px; /*tamaño de la fuente*/
+    font-weight: normal; /* poner en negritas normales -> 400 */
     opacity: 0.7; /* Texto un poco más suave para jerarquía visual */
     color: var(--textoColor);
 }
