@@ -1,0 +1,28 @@
+/*Parametros globales de la pagina*/
+* {
+    box-sizing: border-box;
+    /* Padding y margin son 0 para que el marco no se y quede cubriendo la parte superior de la pagina*/
+    margin: 0;  /*eliminar el margen por defecto*/
+    padding: 0; /*eliminar el padding por defecto*/
+    font-family: Teachers, sans-serif; /*TIPOGRAFIA*/
+}
+
+/*Definir colores y tamaños base en el <html>*/
+/*variables globales (Custom Properties)*/
+:root {
+    --fondoColor: red;
+    --textoColor: #333;   /* Color del texto principal */
+    --colorFondo-header: #e8791f; /* Color de fondo del marco superior */
+    --textoHeader: white; /* Color del texto en el marco superior */
+    --maxAnchura: 1440px; /*define la anchura maxima de la pagina a 1440px(base para las paginas web)*/
+}
+
+
+/*Definir tamaño base de la pagina: 1440px*/
+.contenedor {
+    max-width: var(--maxAnchura); /* llamada a las variable global definida en el :root*/
+    margin: 0 auto; /* Centra el contenido */
+    padding: 0 20px;
+    width: 100%;
+}
+
