@@ -8,6 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Hace que el sitio sea responsive y adaptativo  -->  
         <title>Juegos de azar y mujerzuelas</title>
         <link rel="stylesheet" href="estilos.css"> <!--  vincular a la hoja de estilos.css -->
+        <script src="script.js"></script>
     </head>
     
     <body> <!-- cuerpo de la pagina -->
@@ -31,8 +32,69 @@
                 <p class="parrafo-explicativo">Apila 2 cartas del mismo número para sumarlas, lleva una de las pilas al nro. 2048 para Ganar.</p>
                 
                 <div class="cuadro-de-juego"> <!-- cuadro del juego -->
-                    <p style="color: rgba(255,255,255,0.3); font-style: italic;">[ Espacio reservado para el tablero interactivo ]</p>
-                </div>
+                    <div class="parte-superior"> <!-- contenido de la parte superior del cuadro -->
+                        <div class="puntuacion"> <!-- contenedor de la puntuación -->
+                            <div id="puntuacion-valor" class="mostrarPuntuacion">0</div>
+                            <div class="puntuacion-separator"></div>
+                        </div>
+                        <img src="imagenes/boton-de-reinicio.png" id="boton-reinicio" alt="Reiniciar" class="reinicio-icono" title="Reiniciar Partida">
+                    </div>
+
+                    <div class="parte-central"> <!-- contenido de la parte central del cuadro -->
+                        <div class="columnas-de-cartas"> <!-- contenedor de las columnas de cartas -->
+                            <div class="columna" data-col="0"></div>
+                            <div class="columna" data-col="1"></div>
+                            <div class="columna" data-col="2"></div>
+                            <div class="columna" data-col="3"></div>
+                        </div>
+                        <div class="barra-de-limite"></div>
+                    </div>
+
+                    <div class="parte-inferior"> <!-- contenido de la parte inferior del cuadro -->
+                        <div class="mazo proxima-carta">
+                            <div class="ranura-de-cartas">
+                                <img src="" id="siguiente-carta-imagen" alt="Próxima" class="card-img oculta">
+                            </div>
+                            <span class="mazo-subTitulo">Siguiente carta</span>
+                        </div>
+                    
+                        <div class="mazo carta-actual">
+                            <div class="ranura-de-cartas jugando-actual">
+                                <img src="" id="imagen-carta-actual" alt="Actual" class="card-img oculta">
+                            </div>
+                        </div>
+                        
+                        <div class="mazo descartes">
+                            <div class="control-de-descartes">
+                                <span class="estado-de-descarte">Restantes [<span id="nro-descartes">3</span>]</span>
+                                <div id="caja-de-descartes" class="caja-descarte">
+                                    <img src="cartas/cartaDescarte1.png" id="imagen-descarte" alt="X" class="imagen-de-descarte">
+                                </div>
+                            </div>
+                            <span class="mazo-subTitulo">Descartes</span>
+                        </div>
+                    </div>
+
+                    <div id="ventana-de-victoria" class="pantallaEmergente oculta"> <!-- ventana emergente de victoria, oculta -->
+                        <div class="pantalla-emergente-contenido">
+                            <h2>¡VICTORIA!</h2>
+                            <p>Has alcanzado la mítica carta 2048.</p>
+                            <div class="victoria-botones">
+                                <button id="boton-ganas-reiniciar" class="boton-ventana restaurar-boton">Reiniciar</button>
+                                <button id="boton-ganas-continuar" class="boton-ventana continuar-boton">Continuar</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="ventana-de-derrota" class="pantallaEmergente oculta"> <!-- ventana emergente de derrota, oculta -->
+                        <div class="pantalla-emergente-contenido">
+                            <h2>Perdiste la partida</h2>
+                            <p>Las columnas se han desbordado completamente.</p>
+                            <p class="puntuacion-final-total">Puntuación Total: <span id="puntuacionTotal">0</span></p>
+                            <button id="boton-perdiste-reiniciar" class="boton-ventana restaurar-boton">Reiniciar</button>
+                        </div>
+                    </div>
+                </div>    
                 
 
                 <footer class="pie-de-pagina"> <!-- Pie de página del sitio -->

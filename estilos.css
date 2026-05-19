@@ -115,34 +115,21 @@
     line-height: 1.4;
 }
 
-/* Cuadro base del juego */
-.cuadro-de-juego {
-    width: 100%; /*ancho del cuadro*/
-    max-width: 800px;  /*maxima anchura a alcanzar*/
-    flex-grow: 1;  /* Permite que el cuadro ocupe todo el espacio vertical restante*/
-    background-color: rgba(255, 255, 255, 0.03);  /* Fondo ligeramente más claro para destacar el área del juego */
-    border: 2px dashed rgba(255, 255, 255, 0.15);  /* Borde punteado para indicar que es un área interactiva (temporal) */
-    border-radius: 8px; /* redondea los bordes */
-    display: flex; /* Flexbox para centrar el texto dentro del cuadro */
-    justify-content: center; /* Centra el contenido horizontalmente */
-    align-items: center; /* Centra el contenido verticalmente */
-    margin-bottom: 25px; /* Espacio entre el cuadro del juego y el pie de página */
-}
-
 /*pie de página */
 .pie-de-pagina {
     width: 100%; /*anchura*/
     text-align: center; /* Centra el texto del pie de página */
     padding-top: 15px;  /* Espacio entre el cuadro del juego y el pie de página */
-    border-top: 1px solid rgba(255, 255, 255, 0.1); /* Línea divisoria entre contenido y pie de página */
+    border-top: 2px solid #ffffff; /* Línea divisoria entre contenido y pie de página */
+    margin-top: auto;
 }
 
 /*Redes sociales */
 .footer-redesSociales {
     font-size: 13px; /*tamaño de la fuente*/
     font-weight: normal; /* poner en negritas normales -> 400 */
-    margin-bottom: 5px; /* Espacio entre las redes sociales y los créditos */
-    letter-spacing: 1px; /* Espaciado entre letras para un toque más estilizado */
+    margin-bottom: 4px; /* Espacio entre las redes sociales y los créditos */
+    letter-spacing: 0.5px; /* Espaciado entre letras para un toque más estilizado */
     color: var(--textoColor);
 }
 
@@ -150,8 +137,275 @@
 .footer-creditos {
     font-size: 11px; /*tamaño de la fuente*/
     font-weight: normal; /* poner en negritas normales -> 400 */
-    opacity: 0.7; /* Texto un poco más suave para jerarquía visual */
+    opacity: 0.8; /* Texto un poco más suave para jerarquía visual */
     color: var(--textoColor);
+}
+
+/*-----------------------------------------------------------------------------------*/
+
+
+/*----------------------------- (+) CUADRO DE JUEGO - ZONA DE JUEGo(+) -----------------------------*/
+/* Cuadro base del juego */
+.cuadro-de-juego {
+    width: 100%; /*ancho del cuadro*/
+    max-width: 850px;  /*maxima anchura a alcanzar*/
+    flex-grow: 1;  /* Permite que el cuadro ocupe todo el espacio vertical restante*/
+    height: 720px;
+    background-color: rgba(255, 255, 255, 0.03);  /* Fondo ligeramente más claro para destacar el área del juego */
+    border: 2px dashed rgba(255, 255, 255, 0.15);  /* Borde punteado para indicar que es un área interactiva (temporal) */
+    border-radius: 4px; /* redondea los bordes */
+    display: flex; /* Flexbox para centrar el texto dentro del cuadro */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    margin-bottom: 25px; /* Espacio entre el cuadro del juego y el pie de página */
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    padding: 20px;
+    flex-direction: column;
+    position: relative;
+}
+
+/* Parte Superior */
+.parte-superior {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.puntuacion {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.mostrarPuntuacion {
+    font-size: 36px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.puntuacion-separador {
+    width: 300px;
+    height: 6px;
+    background-color: #cccccc;
+    margin-top: 5px;
+    border-radius: 2px;
+}
+
+.reinicio-icono {
+    position: absolute;
+    right: 10px;
+    top: 5px;
+    width: 55px;
+    height: 55px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.reinicio-icono:hover {
+    transform: rotate(45deg);
+}
+
+/* -> Parte Central */
+.parte-central {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.columnas-de-cartas {
+    display: flex;
+    justify-content: center;
+    gap: 35px; /* Separación simétrica de las columnas */
+    flex-grow: 1;
+    height: 380px;
+    padding: 0 20px;
+}
+
+.columna {
+    width: 85px;
+    height: 100%;
+    background-color: #66bb6a; /* Color verde base del boceto */
+    border: 2px solid #000000;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column-reverse; /* Las cartas se apilan de abajo hacia arriba */
+    justify-content: flex-start;
+    align-items: center;
+    padding-bottom: 2px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.columna:hover {
+    background-color: #77cc7b;
+}
+
+/* Cartas individuales en la pila */
+.card-item-img {
+    width: 77px;
+    height: 42px; /* Altura compacta para permitir apilar las 8 cartas visibles */
+    object-fit: fill;
+    margin-top: -2px; /* Solapamiento controlado */
+    border-radius: 2px;
+}
+
+.barra-de-limite {
+    width: 100%;
+    height: 10px;
+    background-color: #000000; /* Gran barra negra divisoria */
+    margin-top: 15px;
+    margin-bottom: 25px;
+}
+
+/* -> Parte Inferior */
+.parte-inferior {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    width: 100%;
+    padding: 0 40px 10px 40px;
+}
+
+.mazo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ranura-de-cartas {
+    width: 80px;
+    height: 110px;
+    background-color: rgba(0,0,0,0.2);
+    border: 2px solid #ffffff;
+    border-radius: 4px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.jugando-actual {
+    border: 3px solid #ffffff;
+    box-shadow: 0 0 15px rgba(255,255,255,0.4);
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.mazo-subTitulo {
+    font-size: 14px;
+    font-weight: bold;
+    margin-top: 8px;
+    color: #ffffff;
+}
+
+/* Área de Descartes */
+.control-de-descartes {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.estado-de-descarte {
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.caja-descarte {
+    width: 80px;
+    height: 110px;
+    border: 2px solid #000000;
+    cursor: pointer;
+    background-color: transparent;
+    transition: transform 0.1s;
+}
+
+.caja-descarte:hover {
+    transform: scale(1.03);
+}
+
+.imagen-de-descarte {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
+}
+
+/* Pantallas de anuncio (victoria y derrota) */
+.pantallaEmergente {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 100;
+    border-radius: 4px;
+}
+
+.pantalla-emergente-contenido {
+    background-color: #1a1d40;
+    border: 3px solid #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    text-align: center;
+    max-width: 400px;
+    width: 90%;
+}
+
+.pantalla-emergente-contenido h2 {
+    font-size: 28px;
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.pantalla-emergente-contenido p {
+    font-size: 16px;
+    margin-bottom: 20px;
+    color: #cccccc;
+}
+
+.puntuacion-final-total {
+    font-weight: bold;
+    font-size: 18px !important;
+    color: #ffffff !important;
+}
+
+.victoria-botones {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.boton-ventana {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.restaurar-boton {
+    background-color: #b81414;
+    color: white;
+}
+
+.continuar-boton {
+    background-color: #4caf50;
+    color: white;
+}
+
+.oculta {
+    display: none !important;
 }
 
 /*-----------------------------------------------------------------------------------*/
