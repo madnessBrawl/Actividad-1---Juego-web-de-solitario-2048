@@ -8,7 +8,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" /> <!-- Hace que el sitio sea responsive y adaptativo  -->  
         <title>Juegos de azar y mujerzuelas</title>
         <link rel="stylesheet" href="estilos.css"> <!--  vincular a la hoja de estilos.css -->
-        <script src="script.js"></script>
+        <script src="script.js" defer></script>
     </head>
     
     <body> <!-- cuerpo de la pagina -->
@@ -18,88 +18,107 @@
                 <!-- logo del sitio-->
                 <img src="imagenes/imagen-referencia.jpg" alt="Logo del sitio" class="logo"> 
        
-
                 <h1 class="tituloPrincipal-pagina" >BALATROS.EXE</h1> <!-- Título del sitio -->
 
                 <div class="barraInferiorDecorativa"></div> <!-- Barra decorativa al final del marco vertical-->
             </aside>
             
-             <!-- Contenedor principal del sitio (todo al lado del marco izquierdo) -->
+             <!-- Contenedor principal del sitio (todo al lado derecho del marco izquierdo) -->
             <main class="contenedor-juego">  <!--contenido main-->
+
                 <h1 class="titulo-del-juego">Solitario 2048!</h1> <!-- Título del juego - fuera del marco lateral-->
                     
                 <!-- parrafo explicativo para el juego -->
                 <p class="parrafo-explicativo">Apila 2 cartas del mismo número para sumarlas, lleva una de las pilas al nro. 2048 para Ganar.</p>
                 
-                <div class="cuadro-de-juego"> <!-- cuadro del juego -->
-                    <div class="parte-superior"> <!-- contenido de la parte superior del cuadro -->
-                        <div class="puntuacion"> <!-- contenedor de la puntuación -->
-                            <div id="puntuacion-valor" class="mostrarPuntuacion">0</div>
-                            <div class="puntuacion-separator"></div>
+
+                <div id="cuadro-juego"> <!-- cuadro principal del juego, donde se desarrolla toda la acción -->
+                    <div class="parte-superior-tablero"> <!-- contenido de la parte superior del cuadro -->
+                        <div class="contenedor-marcador"> <!-- marcador de puntuación -->
+                            <div id="valor-puntuacion">0</div>
+                            <div class="barra-separadora-puntuacion"></div>
                         </div>
-                        <img src="imagenes/boton-de-reinicio.png" id="boton-reinicio" alt="Reiniciar" class="reinicio-icono" title="Reiniciar Partida">
+                        <!-- botón de reiniciar partida -->
+                        <img src="imagenes/boton-de-reinicio.png" id="btn-reiniciar" alt="Reiniciar" title="Reiniciar Partida">
                     </div>
 
-                    <div class="parte-central"> <!-- contenido de la parte central del cuadro -->
-                        <div class="columnas-de-cartas"> <!-- contenedor de las columnas de cartas -->
-                            <div class="columna" data-col="0"></div>
-                            <div class="columna" data-col="1"></div>
-                            <div class="columna" data-col="2"></div>
-                            <div class="columna" data-col="3"></div>
+                    <div class="parte-central-tablero"> <!-- contenido de la parte central del cuadro -->
+                        <div class="zona-columnas"> <!-- columnas para colocar las cartas -->
+                            <!-- 
+                            Cada columna tiene un atributo "data-col" que indica su número de columna (0 a 3)
+                            Cada columna tiene eventos de arrastrar y soltar:
+                                ondragover="allowDrop(event)" -> Permite que se pueda soltar una carta en esa columna
+                                ondrop="dropCard(event, X)" -> Maneja el evento de soltar una carta en esa columna, donde X es el número de la columna (0 a 3) -->
+                            <div class="columna-cartas" data-col="0" ondragover="allowDrop(event)" ondrop="dropCard(event, 0)"></div>
+                            <div class="columna-cartas" data-col="1" ondragover="allowDrop(event)" ondrop="dropCard(event, 1)"></div>
+                            <div class="columna-cartas" data-col="2" ondragover="allowDrop(event)" ondrop="dropCard(event, 2)"></div>
+                            <div class="columna-cartas" data-col="3" ondragover="allowDrop(event)" ondrop="dropCard(event, 3)"></div>
                         </div>
-                        <div class="barra-de-limite"></div>
+                        <div class="barra-limite"></div> <!-- barra que indica el límite de 8 cartas por columna -->
                     </div>
 
-                    <div class="parte-inferior"> <!-- contenido de la parte inferior del cuadro -->
-                        <div class="mazo proxima-carta">
-                            <div class="ranura-de-cartas">
-                                <img src="" id="siguiente-carta-imagen" alt="Próxima" class="card-img oculta">
+                    <div class="parte-inferior-tablero"> <!-- contenido de la parte inferior del cuadro -->
+                        <!-- sección del mazo de cartas(izquierda, central y derecha) -->
+                        <div class="seccion-mazo seccion-izquierda"> <!-- izquierda - Porxima carta -->
+                            <div class="ranura-carta">
+                                <img src="cartas/carta1.png" id="imagen-proxima" alt="Próxima" class="oculto"> <!-- imagen de la próxima carta -->
                             </div>
-                            <span class="mazo-subTitulo">Siguiente carta</span>
+                            <span class="etiqueta-seccion">Próxima carta</span> <!-- sub titulo -->
                         </div>
-                    
-                        <div class="mazo carta-actual">
-                            <div class="ranura-de-cartas jugando-actual">
-                                <img src="" id="imagen-carta-actual" alt="Actual" class="card-img oculta">
+
+                        <div class="seccion-mazo seccion-central"> <!-- central - carta actual del mazo -->
+                            <div class="ranura-carta ranura-principal">
+                                <!-- imagen de la carta actual 
+                                La imagen tiene el atributo "draggable=true" para permitir que se pueda arrastrar
+                                El evento "ondragstart" llama a la función "dragStart(event)" que maneja el inicio del arrastre de la carta-->
+                                <img src="cartas/carta1.png" id="imagen-actual" alt="Actual" class="oculto" draggable="true" ondragstart="dragStart(event)">
                             </div>
                         </div>
-                        
-                        <div class="mazo descartes">
-                            <div class="control-de-descartes">
-                                <span class="estado-de-descarte">Restantes [<span id="nro-descartes">3</span>]</span>
-                                <div id="caja-de-descartes" class="caja-descarte">
-                                    <img src="cartas/cartaDescarte1.png" id="imagen-descarte" alt="X" class="imagen-de-descarte">
+
+                        <div class="seccion-mazo seccion-derecha"> <!-- derecha - sección de descartes -->
+                            <div class="control-descarte-info"> <!-- información del descarte -->
+                                <!-- sub titulo y contador de descartes que le quedan al jugador-->
+                                <span class="texto-restantes">restantes [<span id="descarte-restantes">3</span>]</span>
+
+                                <!-- botón para descartar la carta actual -->
+                                <!--  allowDrop(event) -> Permite que se pueda soltar una carta en el área de descarte
+                                      dropEnDescarte(event) -> Maneja el evento de soltar una carta en el área de descarte, 
+                                                               descartando la carta actual y restando uno al contador de descartes 
+                                                               restantes  -->
+                                <div id="cuadro-descarte" ondragover="allowDrop(event)" ondrop="dropEnDescarte(event)">
+                                    <img src="cartas/cartaDescarte1.png" id="imagen-descarte" alt="X">
                                 </div>
                             </div>
-                            <span class="mazo-subTitulo">Descartes</span>
+                            <span class="etiqueta-seccion">Descartes</span> <!-- sub titulo -->
                         </div>
                     </div>
-
-                    <div id="ventana-de-victoria" class="pantallaEmergente oculta"> <!-- ventana emergente de victoria, oculta -->
-                        <div class="pantalla-emergente-contenido">
+                    
+                    <!-- Pantallas de victoria y derrota -->
+                     
+                    <div id="modal-victoria" class="capa-modal oculto"> 
+                        <div class="contenido-modal">
                             <h2>¡VICTORIA!</h2>
-                            <p>Has alcanzado la mítica carta 2048.</p>
-                            <div class="victoria-botones">
-                                <button id="boton-ganas-reiniciar" class="boton-ventana restaurar-boton">Reiniciar</button>
-                                <button id="boton-ganas-continuar" class="boton-ventana continuar-boton">Continuar</button>
+                            <p>Has logrado forjar la mítica carta 2048.</p>
+                            <div class="bloque-botones-modal"> <!-- bloque de botones para la pantalla de victoria -->
+                                <button id="btn-victoria-reiniciar" class="boton-modal boton-rojo">Reiniciar</button>
+                                <button id="btn-victoria-continuar" class="boton-modal boton-verde">Continuar</button>
                             </div>
                         </div>
                     </div>
 
-                    <div id="ventana-de-derrota" class="pantallaEmergente oculta"> <!-- ventana emergente de derrota, oculta -->
-                        <div class="pantalla-emergente-contenido">
+                    <div id="modal-derrota" class="capa-modal oculto">
+                        <div class="contenido-modal">
                             <h2>Perdiste la partida</h2>
-                            <p>Las columnas se han desbordado completamente.</p>
-                            <p class="puntuacion-final-total">Puntuación Total: <span id="puntuacionTotal">0</span></p>
-                            <button id="boton-perdiste-reiniciar" class="boton-ventana restaurar-boton">Reiniciar</button>
+                            <p>Una de las columnas superó el límite de 8 cartas y quedó bloqueada.</p>
+                            <p class="marcador-final-texto">Puntuación alcanzada: <span id="puntuacion-final">0</span></p>
+                            <button id="btn-derrota-reiniciar" class="boton-modal boton-rojo">Intentar de nuevo</button>
                         </div>
                     </div>
-                </div>    
-                
-
+                </div>
+        
                 <footer class="pie-de-pagina"> <!-- Pie de página del sitio -->
-                    <h3 class="footer-redesSociales">Intagram|Facebook|X|Linkedln</p>
-                    <h3 class="footer-creditos">&copy;Gamblim.com es una página de juegos de Caracas, Venezuela, creada en mayo de 2026</p>
+                    <h3 class="footer-redesSociales">Intagram|Facebook|X|Linkedln</h3>
+                    <h3 class="footer-creditos">&copy;Gamblim.com es una página de juegos de Caracas, Venezuela, creada en mayo de 2026</h3>
                 </footer>
             </main>
         </div>

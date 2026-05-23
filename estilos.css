@@ -2,8 +2,8 @@
 * {
     box-sizing: border-box; 
     font-family: sans-serif; /*TIPOGRAFIA*/
-    margin: 0;
-    padding: 0;
+    margin: 0; /* Elimina márgenes por defecto de todos los elementos para un control total del diseño */
+    padding: 0; /* Elimina rellenos por defecto para evitar espacios no deseados */
 }
 
 /*variables globales (Custom Properties)*/
@@ -20,8 +20,8 @@
 
 .body  {  /*Definir tamaño base de la pagina*/
     background-color: #1a1d40; /* Color de fondo general solicitado */
-    height: 100vh;
-    display: flex;
+    height: 100vh; /* son vh para que ocupe toda la altura de la pantalla sin importar el contenido */
+    display: flex; /* Usamos flexbox para centrar el contenedor principal */
     justify-content: center; /* Centra el contenedor si la pantalla es mayor a 1440px */
     align-items: center;
     overflow: hidden; /* Evita barras de scroll externas molestas */
@@ -32,52 +32,68 @@
     background-color: var(--fondoColor);
     display: flex;
     width: 100%;
-    height: 100vh; 
+    min-height: 100vh; /* Ocupa el 100% de la altura de la pantalla */  
+    flex-direction: row; /* Alinea el menú a la izquierda y el juego a la derecha */
+
+    align-items: stretch; /* Obliga a que el aside y el main tengan exactamente la misma altura */
+    overflow: hidden; /* Evita scrolls raros en los bordes */
+    
+    overflow-y: auto; 
+    overflow-x: hidden;
 }
 
 /*-----------------------------------------------------------------------------------*/
+
 
 /*----------------------------- MARCO LATERAL IZQUIERDO -----------------------------*/
 
 /*ASIDE PRINCIPAL*/
 .marco-lateral-izquierdo {
-    width: 260px; /* Tamaño prudente que no estorba al juego */
+    width: 250px; /* Tamaño prudente que no estorba al juego */
     background-color: var(--colorFondo-aside); /* Color rojo solicitado */
     color: var(--textoAside); /* Letra blanca */
+
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px;
+    flex-direction: column; /* Alinea el contenido verticalmente */
+    align-self: stretch; /* Esto obliga al aside a estirarse verticalmente al 100% del contenedor */
+    align-items: center; /* Centra horizontalmente el contenido dentro del aside */
+    padding: 20px; /* Espacio interno para que el contenido no toque los bordes */
     position: relative; /* Permite posicionar la barra ovalada al fondo */
-    flex-shrink: 0; /* Evita que el contenedor derecho lo aplaste */
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total del aside */
+
+    height: auto; /* Deja que el contenedor padre maneje la altura */
+    flex-shrink: 0; /* Evita que el menú se encoja horizontalmente si la pantalla es pequeña */
 }
 
 /*Imagen de logo */
 .logo {
-    width: 120px;
-    height: 120px;
-    object-fit: contain;
-    margin-bottom: 20px;
+    width: 120px; /*anchura*/
+    height: auto; /*altura automatica para mantener proporciones*/
+    object-fit: contain; /* Asegura que la imagen se ajuste sin distorsionarse */
+    margin-top: 10px; /* Espacio superior para que no toque el borde del aside */
+    margin-bottom: 15px; /* Espacio inferior para separar el logo del título */
     background-color: rgba(255, 255, 255, 0.1); /* Fondo temporal por si no tienes la imagen cargada */
-    border-radius: 10px;
+    border-radius: 10px; /* Bordes redondeados para un toque más suave */
+    display: block; /* Evita comportamientos de línea fantasmas */  
 }
 
 /*TITULO DEL LOGO*/
 .tituloPrincipal-pagina {
-    font-size: 22px;
-    font-weight: bold;
-    text-align: center;
-    width: 100%;
+    font-size: 24px; /*tamaño de letra*/
+    font-weight: bold; /*poner el titulo en negritas*/
+    text-align: center; /* Centra el título horizontalmente */
+    width: 100%; /* anchura completa para asegurar el centrado */
+    letter-spacing: 1px; /* Espaciado entre letras para mejorar la legibilidad */
 }
 
 /*Barra ovalada decorativa al fondo del marco*/
 .barraInferiorDecorativa {
-    position: absolute;
+    position: absolute; /* Posicionamiento absoluto para colocarla en la base del aside */
     bottom: 30px; /* Pegado al fondo del marco */
-    left: 50%;
+    left: 50%; /* Posicionado al centro horizontal del aside */
     transform: translateX(-50%); /* Centrado exacto horizontalmente */
-    width: 80%;
-    height: 25px;
+    width: 80%; /* anchura de la barra, ajustable para que no toque los bordes del aside */
+    height: 25px; /* Altura de la barra */
     background-color: var(--fondoColor); /* Mismo color que la página */
     border-radius: 50px; /* Forma de óvalo/cápsula */
 }
@@ -88,12 +104,28 @@
 
 /*contenedor principal del contenido - MAIN*/
 .contenedor-juego {
-    flex-grow: 1; /* Permite que este contenedor ocupe todo el espacio disponible a la derecha del marco lateral */
-    display: flex; /* Flexbox para organizar el contenido verticalmente */
-    flex-direction: column; /* Organiza los elementos en columna (verticalmente) */
-    align-items: center; /* Centra todos los bloques hijos horizontalmente */
-    padding: 30px 40px 20px 40px; /* Espaciado interno para que el contenido no toque los bordes */
-    color: var(--textoColor);
+    flex-grow: 1; /* Permite que el contenedor del juego ocupe todo el espacio restante a la derecha del aside */
+    display: flex; /* Usamos flexbox para organizar el contenido del juego */
+    flex-direction: column; /* Alinea el título, el juego y el pie de página verticalmente */
+    justify-content: space-between; /* Empuja el título arriba, el juego al centro y el footer abajo */
+    padding: 20px; /* Espacio interno para que el contenido no toque los bordes */
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total del contenedor */
+    color: var(--textoColor); 
+    min-height: 100vh;  /* Asegura que el contenedor del juego ocupe al menos toda la altura de la pantalla */
+    height: auto; /* Deja que el contenido interno maneje la altura total del contenedor */
+}
+
+/* parrafo explicativo debajo del titulo del juego */
+.contenedor-juego > p{ 
+    text-align: center; /* Centra el texto del párrafo horizontalmente */
+    color: #cccccc;
+    font-size: 16px; /* tamaño de letra del párrafo explicativo */
+    margin-top: 0; /* Elimina el margen superior nativo del párrafo para un control total del espacio */
+    margin-bottom: 20px; /* Separa la descripción del tablero rojo */
+    width: 100%; /* Asegura que tome todo el ancho disponible para centrar bien */
+    display: block; /* Asegura que el párrafo se comporte como un bloque para evitar problemas de centrado */
+    margin-left: auto; /* Centra el párrafo dentro del contenedor del juego */
+    margin-right: auto; /* Centra el párrafo dentro del contenedor del juego */
 }
 
 /* Título del juego centrado */
@@ -102,309 +134,377 @@
     color: var(--textoColor);
     font-weight: bold; /* poner el titulo en negritas */
     text-align: center; /* Centra el título horizontalmente */
-    margin-bottom: 10px; /* Espacio separador entre el título y el párrafo explicativo */
+    margin-bottom: 5px; /* Espacio separador entre el título y el párrafo explicativo */
 }
 
 /* Párrafo*/
 .parrafo-explicativo {
-    font-size: 15px; /* Tamaño de letra del párrafo explicativo */
+    font-size: 14px; /* Tamaño de letra del párrafo explicativo */
     text-align: center; /* Centra las líneas de texto del párrafo */
-    max-width: 700px; /* ancho del párrafo */
-    margin-bottom: 30px; /* Espacio separador entre el párrafo y el cuadro del juego */
+    max-width: 800px; /* ancho del párrafo */
+    margin-bottom: 20px; /* Espacio separador entre el párrafo y el cuadro del juego */
     color: var(--textoColor);
-    line-height: 1.4;
+    line-height: 1.4; /* Mejora la legibilidad al aumentar el espacio entre líneas */
+    opacity: 0.9; /* Hace el texto un poco más suave para que no compita visualmente con el juego */
 }
 
 /*pie de página */
 .pie-de-pagina {
     width: 100%; /*anchura*/
     text-align: center; /* Centra el texto del pie de página */
-    padding-top: 15px;  /* Espacio entre el cuadro del juego y el pie de página */
-    border-top: 2px solid #ffffff; /* Línea divisoria entre contenido y pie de página */
-    margin-top: auto;
+    padding-top: 40px 0;  /* Espacio entre el cuadro del juego y el pie de página */
+    border-top: 1px solid #ffffff; /* Línea divisoria entre contenido y pie de página */
+    margin-top: auto; /* Empuja el pie de página hacia la base del contenedor del juego, asegurando que siempre esté al fondo sin importar el contenido */
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total del pie de página */
+    justify-content: flex-end; /* Alinea el contenido hacia la base de su caja */
+    padding-bottom: 15px;     /* Margen de seguridad antes de tocar el borde inferior físico de la pantalla */
+    display: flex; /* Usamos flexbox para controlar la alineación vertical del contenido del pie de página */
 }
 
-/*Redes sociales */
-.footer-redesSociales {
-    font-size: 13px; /*tamaño de la fuente*/
-    font-weight: normal; /* poner en negritas normales -> 400 */
-    margin-bottom: 4px; /* Espacio entre las redes sociales y los créditos */
-    letter-spacing: 0.5px; /* Espaciado entre letras para un toque más estilizado */
-    color: var(--textoColor);
+/* elementos del pie de pagina para que no generen conflicto de espacio y orden con el cuadro de juegos */    
+.footer-redesSociales, .footer-creditos {
+    text-align: center;       /* Centra el texto de ambos elementos del pie de página */
+    font-weight: normal;      /* Quita la negrita excesiva típica de los h3 para que se vea más limpio */
+    font-size: 14px;          /* Ajusta el tamaño de fuente para un pie de página académico estándar */
+    color: var(--textoColor);    
+    width: 100%;
+    
+    margin-top: 0;            /* Resetea y elimina por completo el margen superior nativo del h3 */
+    margin-bottom: 8px;       /* Controla una separación muy sutil entre las redes y los créditos */
 }
 
 /* creditos */
 .footer-creditos {
-    font-size: 11px; /*tamaño de la fuente*/
-    font-weight: normal; /* poner en negritas normales -> 400 */
-    opacity: 0.8; /* Texto un poco más suave para jerarquía visual */
-    color: var(--textoColor);
+    margin-bottom: 0;    /* Elimina cualquier espacio sobrante en el fondo absoluto */
 }
 
 /*-----------------------------------------------------------------------------------*/
 
 
 /*----------------------------- (+) CUADRO DE JUEGO - ZONA DE JUEGo(+) -----------------------------*/
+
 /* Cuadro base del juego */
-.cuadro-de-juego {
-    width: 100%; /*ancho del cuadro*/
-    max-width: 850px;  /*maxima anchura a alcanzar*/
-    flex-grow: 1;  /* Permite que el cuadro ocupe todo el espacio vertical restante*/
-    height: 720px;
-    background-color: rgba(255, 255, 255, 0.03);  /* Fondo ligeramente más claro para destacar el área del juego */
-    border: 2px dashed rgba(255, 255, 255, 0.15);  /* Borde punteado para indicar que es un área interactiva (temporal) */
-    border-radius: 4px; /* redondea los bordes */
-    display: flex; /* Flexbox para centrar el texto dentro del cuadro */
-    justify-content: center; /* Centra el contenido horizontalmente */
-    margin-bottom: 25px; /* Espacio entre el cuadro del juego y el pie de página */
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    padding: 20px;
-    flex-direction: column;
-    position: relative;
+
+/*llamamos al id por que es un elemento único que ayuda a controlar la 
+lógica sea el mismo nombre que usa el CSS para controlar el diseño.*/
+#cuadro-juego {
+    width: 100%; /* Ocupa todo el ancho disponible dentro del contenedor del juego, pero el max-width lo limita a un tamaño razonable */
+    max-width: 780px; /* Reducido ligeramente para dar margen al marco izquierdo */
+    height: 580px;    /* Reducido de 680px a 520px para que NUNCA tape el pie de página */
+    background-color: var(--colorFondo-aside); /*color de fondo */
+    border: 3px solid #000000; /*bordes*/
+    border-radius: 6px; /*bordes redondeados*/
+    display: flex; /* Usamos flexbox para organizar las secciones internas del juego */
+    flex-direction: column; /* Alinea las secciones del juego verticalmente */
+    justify-content: space-between 35px auto;
+    padding: 15px; /* Espacio interno para que el contenido no toque los bordes del cuadro de juego */
+    margin: 0 auto 35px auto; /* Lo centra horizontalmente dentro de su sección */
+    position: relative; /* Permite posicionar elementos internos de forma absoluta si es necesario */
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5); /* Sombra para dar profundidad al cuadro de juego */
+    box-sizing: border-box; /* Asegura que el padding no aumente el tamaño total del cuadro de juego */
 }
 
-/* Parte Superior */
-.parte-superior {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    width: 100%;
-    margin-bottom: 20px;
+/* -> PARTE SUPERIOR --------------------------------------------------------------------------*/
+
+/* Contenedor general de la parte superior del tablero */
+.parte-superior-tablero {
+    height: 60px; /* Altura fija para la parte superior del tablero, suficiente para el marcador y el botón de reinicio */
+    display: flex; /* Usamos flexbox para organizar el marcador y el botón de reinicio */
+    justify-content: center; /* Centra el marcador horizontalmente */
+    align-items: center; /* Centra verticalmente el marcador dentro de su sección */
+    position: relative; /* Permite posicionar el botón de reinicio de forma absoluta dentro de esta sección */
 }
 
-.puntuacion {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* puntuacion */ 
+.contenedor-marcador {
+    display: flex; /* Usamos flexbox para organizar el valor de la puntuación y la barra separadora */
+    flex-direction: column; /* Alinea el valor de la puntuación y la barra separadora verticalmente */
+    align-items: center; /* Centra horizontalmente el valor de la puntuación y la barra separadora dentro del contenedor del marcador */
 }
 
-.mostrarPuntuacion {
-    font-size: 36px;
-    font-weight: bold;
-    color: #ffffff;
+/* id del valor de la puntuación por que es un elemento único y ayuda a controlar su estilo */
+#valor-puntuacion {
+    font-size: 42px; /* Tamaño de letra grande para destacar la puntuación */
+    font-weight: bold; /* Pone la puntuación en negrita para mayor impacto visual */
+    color: var(--textoColor);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5); /* Sombra para mejorar la legibilidad sobre el fondo rojo */
 }
 
-.puntuacion-separador {
-    width: 300px;
-    height: 6px;
-    background-color: #cccccc;
-    margin-top: 5px;
-    border-radius: 2px;
+/* barra separadora debajo de la puntuación */
+.barra-separadora-puntuacion {
+    width: 260px; /* anchura */
+    height: 5px; /* altura */
+    background-color: black;
+    margin-top: 2px; /* Deja una mínima separación vertical con respecto al texto del marcador que tiene arriba evitando que se peguen. */
+    border-radius: 3px;  /* Redondea las esquinas de la barra */
 }
 
-.reinicio-icono {
-    position: absolute;
-    right: 10px;
-    top: 5px;
-    width: 55px;
-    height: 55px;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+/* id del boton del reinicio */
+#btn-reiniciar {
+    position: absolute; /**/
+    right: 15px; /*pega el boton hacia la distancia del borde derecho del tablero rojo.*/
+    top: 50%; /*baja el borde superior del botón justo a la mitad del contenedor.*/
+    transform: translateY(-50%); /*sube el botón hacia arriba un espacio equivalente a la mitad de su propia altura*/
+    width: 48px; /*anchura*/
+    height: 48px; /* altura*/
+    cursor: pointer; /*Transforma la flecha del mouse en una "manito" al pasar por encima del boton*/
+    transition: transform 0.2s ease; /*genera una animacion de 0.2 segundos ante un cambio en el hover*/
 }
 
-.reinicio-icono:hover {
-    transform: rotate(45deg);
+/*estilo interactivo para el boton de reinicio*/
+#btn-reiniciar:hover {
+    transform: translateY(-50%) rotate(45deg); /*se centra verticalmente y hace un giro de 45 grados */
 }
 
-/* -> Parte Central */
-.parte-central {
-    flex-grow: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
+/* -> PARTE CENTRAL (ZONA DE JUEGO ACTIVO) ----------------------------------------------------------------------------------------- */
+.parte-central-tablero {
+    height: 310px; /* Fijamos una altura estricta para la zona de juego */
+    display: flex;  /*los elementos se van a ordenar como una torre, uno debajo del otro.*/
+    flex-direction: column; /* Cambiado a normal para evitar alteraciones de flujo */
+    justify-content: flex-start; /*linea los elementos hacia arriba de este contenedor, asegurando que la barra de límite se pegue bien arriba de las columnas*/
 }
 
-.columnas-de-cartas {
-    display: flex;
-    justify-content: center;
-    gap: 35px; /* Separación simétrica de las columnas */
-    flex-grow: 1;
-    height: 380px;
-    padding: 0 20px;
+/*columnas del juego*/
+.zona-columnas {
+    display: flex; /*flexbox de forma horizontal dejando espacios vacios entre izquierda y derecha*/
+    justify-content: center; /*centra las 4 columnas horizontalmente*/
+    gap: 25px; /*espacio de separacion entre cada columna*/
+    height: 280px; /* Ajustado perfectamente para que las 8 cartas mueran en el borde inferior */
+    width: 100%; /*anchura*/
 }
 
-.columna {
-    width: 85px;
-    height: 100%;
-    background-color: #66bb6a; /* Color verde base del boceto */
-    border: 2px solid #000000;
-    border-radius: 4px;
-    display: flex;
-    flex-direction: column-reverse; /* Las cartas se apilan de abajo hacia arriba */
-    justify-content: flex-start;
-    align-items: center;
-    padding-bottom: 2px;
-    cursor: pointer;
-    transition: background-color 0.2s;
+/*estilo de cada columna*/
+.columna-cartas {
+    width: 80px; /*anchura*/
+    height: 100%; /*altura que usa la totalidad del alto maximo: 280px*/
+    background-color: #97aa98; /* color de las columnas*/
+    border: 3px solid #000000; /*bordes*/
+    border-radius: 4px; /*redondea las esquinas*/
+    display: flex; /*activa el flexbox*/
+    flex-direction: column-reverse; /* Apila de abajo hacia arriba */
+    justify-content: flex-start; /*alinena los elementos desde abajo hasta arriba*/
+    align-items: center; /*mantienen la pila centrada*/
+    padding-bottom: 4px; /*altura del area dentro de la columna*/
+    box-sizing: border-box; /* evita que los 3px de borde negro ensanchen la columna*/
+    overflow: hidden; /* Corta cualquier carta que intente salirse por error */
 }
 
-.columna:hover {
-    background-color: #77cc7b;
+/*estilo interactivo de la columna*/
+.columna-cartas:hover {
+    background-color: #77cc7b; /* Feedback visual al pasar el mouse */
 }
 
-/* Cartas individuales en la pila */
+/* Estilo para las imágenes de las cartas añadidas por el script.js */
 .card-item-img {
-    width: 77px;
-    height: 42px; /* Altura compacta para permitir apilar las 8 cartas visibles */
-    object-fit: fill;
-    margin-top: -2px; /* Solapamiento controlado */
-    border-radius: 2px;
+    width: 80px;  /* anchura*/
+    height: 45px; /* Alturax */
+    object-fit: fill; /*obliga a las cartas a daptarse en tamaño sin dejar bordes vacios*/
+    margin-top: -6px; /* Desplazamiento negativo para lograr el efecto de cascada del solitario */
+    border: 1px solid black;  /*bordes*/
+    border-radius: 3px; /*les da un borde fino negro para distigirlas de donde termina una y empieza otra*/
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3); /*sombra para las cartas*/
 }
 
-.barra-de-limite {
+/*barra que separa los columnas y el mazo*/
+.barra-limite {
     width: 100%;
-    height: 10px;
-    background-color: #000000; /* Gran barra negra divisoria */
-    margin-top: 15px;
-    margin-bottom: 25px;
+    height: 8px;
+    background-color: black;
+    margin-bottom: 10px; /* La barra negra se queda arriba fija */
 }
 
-/* -> Parte Inferior */
-.parte-inferior {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    width: 100%;
-    padding: 0 40px 10px 40px;
+/* -> PARTE INFERIOR (MAZO y sus partes) ---------------------------------------------------------------------------------------------- */
+
+.parte-inferior-tablero {
+    height: 140px; /* Espacio rígido para el mazo */
+    display: flex;  /*flexbox de forma horizontal*/
+    justify-content: space-between; /*empuja la sección izquierda (próxima carta) al extremo izquierdo, la sección derecha (descartes) al extremo derecho y deja la carta actual en el centro perfecto*/
+    align-items: center; /* Centrado vertical interno */
+    width: 100%; /*ocupa el maximo de anchura propuesto*/
+    padding: 0 35px; /*evita que las cartas toquen los bordes negros de la consola*/
+    box-sizing: border-box; /*asegura que ese espacio interno no ensanche el cuadro principal*/
+    background-color: rgba(0, 0, 0, 0.1); /* Sutil fondo decorativo para el mazo */
+    border-radius: 4px; /*redondea ligeramente las esquinas de ese fondo decorativo oscuro*/
 }
 
-.mazo {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/*bloques o secciones que dividen el mazo completo (proxima carta, carta actual, descartes)*/
+.seccion-mazo {
+    display: flex; /*flexbox de forma vertical*/
+    flex-direction: column; /*apila los elementos de forma horizontal (columnas)*/
+    align-items: center; /*aliena y centra los elementos en relacion a la altura del contenedor*/
 }
 
-.ranura-de-cartas {
-    width: 80px;
-    height: 110px;
-    background-color: rgba(0,0,0,0.2);
-    border: 2px solid #ffffff;
-    border-radius: 4px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
+/*aspecto del modelo de cartas donde estan la "proxima carta" y la "carta actual"*/
+.ranura-carta {
+    width: 75px; /* Reducido ligeramente para optimizar espacio */
+    height: 100px; /*altrua*/
+    background-color: rgba(0, 0, 0, 0.25);
+    border: 2px dashed white; /*bordes*/
+    border-radius: 4px;  /*redondea los bordes*/
+    display: flex; /*usamos un flexbox para cuando el js ponga la imagen, esta quede centrada en el cuadro*/
+    justify-content: center; /*centra la carta*/
+    align-items: center; 
 }
 
-.jugando-actual {
-    border: 3px solid #ffffff;
-    box-shadow: 0 0 15px rgba(255,255,255,0.4);
+/*ranura de la carta en el centro del mazo - carta actual*/
+.ranura-principal {
+    border: 3px solid #ffffff; /*bordes*/
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
 }
 
-.card-img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-.mazo-subTitulo {
-    font-size: 14px;
-    font-weight: bold;
-    margin-top: 8px;
-    color: #ffffff;
-}
-
-/* Área de Descartes */
-.control-de-descartes {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-}
-
-.estado-de-descarte {
-    font-size: 14px;
-    font-weight: bold;
-}
-
-.caja-descarte {
-    width: 80px;
-    height: 110px;
-    border: 2px solid #000000;
-    cursor: pointer;
-    background-color: transparent;
-    transition: transform 0.1s;
-}
-
-.caja-descarte:hover {
-    transform: scale(1.03);
-}
-
-.imagen-de-descarte {
+/*estilos para la adaptacion de las imagenes de las cartas*/
+.ranura-carta img,#cuadro-descarte img {
     width: 100%;
     height: 100%;
-    object-fit: fill;
+    object-fit: fill; /*obliga a las cartas a adaptar sus tamaño al definido por la anchura y altura*/
+    display: block; /* Elimina espacios vacíos fantasmas en la base de las imágenes */
 }
 
-/* Pantallas de anuncio (victoria y derrota) */
-.pantallaEmergente {
+/*subtitulos para "proxima carta" y "descartes" */
+.etiqueta-seccion {
+    font-size: 13px; /*tamaño de letra*/
+    font-weight: bold;  /*grueso de las letras*/
+    color: white;
+    margin-top: 8px; /*cantidad de espacio hacia arriba*/
+    text-transform: uppercase; /*convierte el texto en mayusculas*/
+    letter-spacing: 0.5px; /*separacion de lentras*/
+    text-align: center; /* Fuerza el centrado del texto "Descartes" */
+}
+
+/*seccion derecha del mazo - ajustada para no generar conflicto con las demas*/
+.seccion-derecha {
+    display: flex; 
+    flex-direction: column; /*apila los elementes de arriba a abajo*/
+    align-items: center; /* Centra horizontalmente todo el bloque de descarte */
+    justify-content: center; /*centra de forma vertical y horizontal todo el conjunto derecho del mazo*/
+}
+
+/* Área específica de descartes */
+.control-descarte-info {
+    display: flex;
+    flex-direction: column; /* Cambiado a columna para alinear el texto de restantes ARRIBA de la imagen */
+    align-items: center; /*alinea y centra los elementos*/
+    gap: 5px; /*asegura una separación milimétrica constante entre las cartas*/
+}
+
+/*sub titulo de descartes restantes*/
+.texto-restantes {
+    font-size: 14px; 
+    font-weight: bold;
+    color: white;
+}
+
+/*id del contenedor de los descartes*/
+#cuadro-descarte {
+    width: 75px;
+    height: 100px;
+    border: 2px solid black; /*bordes*/
+    border-radius: 4px; /*redondea los bordes*/
+    cursor: pointer; /*convierte el mouse en una mano al pasa encima del boton*/
+}
+
+/*estilo interactivo del descarte*/
+#cuadro-descarte:hover {
+    transform: scale(1.04); /*al pasar el mouse por encima o mantener la carta en el aire sobre él, el mazo de descartes se agranda un 4% de su tamaño de forma suave*/
+}
+
+/*imagen de cuadro de descartes*/
+#cuadro-descarte img {
+    width: 100%;
+    height: 100%;
+    object-fit: fill;  /*obliga a las cartas a adaptar sus tamaño al definido por la anchura y altura*/
+}
+
+/* --- INTERFACES EMERGENTES (ventanas de victoria y derrota) ------------------------------------------------------------------------------------------------------- */
+
+/* fondo negro semitransparente que cubre todo el juego cuando se termina la partida.*/
+.capa-modal {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    justify-content: center;
+    top: 0; /*posicion vertial nula*/
+    left: 0; /*posicion izquierda nula*/
+    width: 100%; /*ocupa todo el ancho maximo*/
+    height: 100%; /*ocupa toda la altura maximo*/
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex; /*flexbox para alinear y distribuir espacio de la caja de mensaje*/
+    /*estos dos ayudan a centralizar la caja del mensaje*/
+    justify-content: center; 
     align-items: center;
-    z-index: 100;
-    border-radius: 4px;
+    z-index: 50; /*profundidad tridimensional en un eje "Z" para dibujar el efecto en todos los elementos de la pagina(cartas, putnuacion, etc...)*/
+    border-radius: 4px; /*redondear los bordes para que encaje*/
 }
 
-.pantalla-emergente-contenido {
-    background-color: #1a1d40;
-    border: 3px solid #ffffff;
-    padding: 30px;
-    border-radius: 8px;
-    text-align: center;
-    max-width: 400px;
-    width: 90%;
+/*cuadro azul centrado que aparece tanto al ganar como perder*/
+.contenido-modal {
+    background-color: var(--fondoColor); /* Fondo azul oscuro de la app */
+    border: 3px solid white;
+    border-radius: 8px; /*redondear los bordes*/
+    padding: 25px; /*evita que el texto no toque los bordes*/
+    text-align: center; /*centra el contenido de la ventana*/
+    width: 85%; /*usa solo el 85% del ancho*/
+    max-width: 380px; /*maxima anchura*/
+    box-shadow: 0 6px 20px rgba(0,0,0,0.7); /*sombra de la ventana*/
 }
 
-.pantalla-emergente-contenido h2 {
-    font-size: 28px;
-    margin-bottom: 15px;
-    color: #ffffff;
+/*TIULO de victoria y derrota*/
+.contenido-modal h2 {
+    font-size: 26px; /*tamaño de letra*/
+    color: white; 
+    margin-bottom: 12px;  /*espacio del margen inferior*/
 }
 
-.pantalla-emergente-contenido p {
-    font-size: 16px;
-    margin-bottom: 20px;
+/*mensaje de ventana*/
+.contenido-modal p {
+    font-size: 14px; /*tamaño de letra*/
     color: #cccccc;
+    margin-bottom: 20px;
 }
 
-.puntuacion-final-total {
-    font-weight: bold;
-    font-size: 18px !important;
-    color: #ffffff !important;
+/*mensaje de puntuacion final alcanzada*/
+.marcador-final-texto {
+    font-size: 16px; /*tamaño de la letra*/
+    font-weight: bold; /*grueso de la letra*/
+    color: white !important; /*usamos un "!important" para que otras reglas no cambie el color sin permiso*/
 }
 
-.victoria-botones {
-    display: flex;
-    justify-content: center;
-    gap: 20px;
+/*bloque de organizacion de los botones de la ventana*/
+.bloque-botones-modal {
+    display: flex; /*alinear los botones uno al lado de otro*/
+    justify-content: center; /*que los botones queden cnetrados horizontalmente*/
+    gap: 15px; /*separacion de los botones*/
 }
 
-.boton-ventana {
-    padding: 10px 20px;
-    border: none;
-    border-radius: 4px;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
+/*botones de la ventana*/
+.boton-modal {
+    padding: 10px 18px; /*tamaño interno del botón para un aspecto rectangular elegante*/
+    border: none; /*sin bordes por defecto*/
+    border-radius: 4px; /*redondear esquinas*/
+    font-size: 14px; /*tamaño de la letra del boton*/
+    font-weight: bold; /*letra gruesa*/
+    cursor: pointer;  /*convierte el mouse en una mano al pasar sobre el boton*/
+    transition: opacity 0.1s; /*opacidad suave*/
 }
 
-.restaurar-boton {
-    background-color: #b81414;
-    color: white;
+/*estilo de interaccion de los botones*/
+.boton-modal:hover {
+    opacity: 0.9;  /*vuelve ligeramentre traslucudio el boton al pasar el mouse sobre él*/
 }
 
-.continuar-boton {
-    background-color: #4caf50;
-    color: white;
+/*boton de reiniciar partida en la pantalla de victoria*/
+.boton-rojo { 
+    background-color: #b81414; 
+    color: white; 
 }
 
-.oculta {
+/*boton de continuar la partida ganada*/
+.boton-verde { 
+    background-color: #4caf50; 
+    color: white; 
+}
+
+/* REGLA DE VISIBILIDAD UTILITARIA */
+/*oculta las ventanas de victoria y derrota hasta que los llame el 
+script.js cuando el jugador gane o pierda*/
+.oculto {
     display: none !important;
 }
 
