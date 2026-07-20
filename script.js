@@ -8,8 +8,7 @@ let juegoActivo = true;
 let columnaVictoriaSeleccionada = null; // Guarda la columna que llegó a 2048 para su limpieza externa
 
 // Pool numérico para la generación aleatoria de cartas jugables 
-// cartas que se generaran al azar al inciar la partida
-const VALORES_DISPONIBLES = [2, 4, 8, 16, 32, 64];
+let VALORES_DISPONIBLES = [2, 4, 8];
 
 // MAPA DE TRADUCCIÓN: Vincula el cálculo matemático con las cartas de su nro correspondiente
 const MAPA_CARTAS = {
@@ -54,11 +53,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Resetea todas las variables del sistema para una nueva partida
 function inicializarMesaDeJuego() {
-    puntuacion = 0; // puntnacion de comienzo
+    puntuacion = 0; // puntuacion de comienzo
     descartesRestantes = 3; // nro de descartes por defecto
     columnas = [[], [], [], []]; // nuevas columnas para un nuevo juego
     juegoActivo = true; 
     columnaVictoriaSeleccionada = null;
+    
+    // NUEVO: Reiniciamos el pool de cartas a los valores base para evitar que las cartas desbloqueadas 
+    // en una partida anterior se pasen a la nueva partida.
+    VALORES_DISPONIBLES = [2, 4, 8];
     
     // Ocultar capas de victoria y derrota
     if (elModalVictoria) elModalVictoria.classList.add('oculto');
@@ -220,6 +223,13 @@ function ejecutarFusionRecursiva(indiceColumna) {
         
         // Incrementar el marcador general de puntos
         puntuacion += valorFusionado;
+
+        // Progresión del mazo de cartas aleatorias.
+        // Si la nueva carta creada (valorFusionado) es 256 o menor, y aún no existe en nuestro 
+        // arreglo de VALORES_DISPONIBLES, se añade al pool para que pueda aparecer en los próximos turnos.
+        if (valorFusionado <= 256 && !VALORES_DISPONIBLES.includes(valorFusionado)) {
+            VALORES_DISPONIBLES.push(valorFusionado);
+        }
         
         // CONTROL DE VICTORIA: Si la carta resultante llega a 2048
         if (valorFusionado === 2048) {
